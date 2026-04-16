@@ -7,13 +7,12 @@ export function TopNavigation() {
       <nav className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
-              <span
-                className="material-symbols-outlined text-xl"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                target
-              </span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-on-primary-container">
+              <img 
+              src="/logo.png"  
+              alt="Mission Saver Logo"
+              className="h-auto w-25" 
+            />
             </div>
             <span className={`text-2xl font-bold text-[#A43A3D] ${styles.brandLogo}`}>
               Mission Saver
