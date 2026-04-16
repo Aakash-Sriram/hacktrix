@@ -31,8 +31,8 @@ export type Mission = {
 };
 
 export const navigationLinks: NavigationLink[] = [
-  { href: "#", label: "Missions", isActive: true },
-  { href: "#", label: "Achievements" },
+  { href: "/", label: "Missions", isActive: true },
+  { href: "/achievements", label: "Achievements" },
   { href: "#", label: "Challenges" },
   { href: "#", label: "Admin" },
 ];
