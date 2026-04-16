@@ -39,7 +39,7 @@ export function MissionFilterBar({
         onClick={onCreateClick}
         type="button"
       >
-        <span className="material-symbols-outlined text-lg">{isCreateOpen ? "close" : "add"}</span>
+        <span className="material-symbols-outlined text-lg">{isCreateOpen ? "-" : "+"}</span>
         <span>{isCreateOpen ? "Close Creator" : "Create Mission"}</span>
       </button>
     </section>

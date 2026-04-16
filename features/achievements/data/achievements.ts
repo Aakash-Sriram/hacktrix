@@ -45,13 +45,13 @@ export type AchievementBadgeClasses = {
 export const navigationLinks: NavigationLink[] = [
   {
     label: "Missions",
-    href: "#",
+    href: "/",
     className:
       "text-[#1C1C19]/60 hover:text-[#A43A3D] transition-colors duration-300",
   },
   {
     label: "Achievements",
-    href: "#",
+    href: "/achievements",
     className:
       "text-[#A43A3D] relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-[#006A63] after:rounded-full transition-colors duration-300",
   },
