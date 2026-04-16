@@ -1,9 +1,13 @@
-import { achievementStats } from "@/features/achievements/data/achievements";
+import type { AchievementStat } from "@/features/achievements/data/achievements";
 
-export function StatsGrid() {
+type StatsGridProps = {
+  stats: AchievementStat[];
+};
+
+export function StatsGrid({ stats }: StatsGridProps) {
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {achievementStats.map((stat) => (
+      {stats.map((stat) => (
         <div
           key={stat.label}
           className={`p-8 rounded-lg flex flex-col justify-between min-h-[160px] group hover:translate-y-[-4px] transition-transform duration-300 ${stat.cardClassName}`}

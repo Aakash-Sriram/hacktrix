@@ -1,14 +1,21 @@
 import { NextResponse } from "next/server";
 
+import { createClient } from "@/utils/supabase/server";
+
 export async function GET(req: Request) {
-    const url = new URL(req.url);
+  const url = new URL(req.url);
+  const code = url.searchParams.get("code");
+  const nextPath = url.searchParams.get("next");
+  const redirectPath = nextPath?.startsWith("/") ? nextPath : "/";
 
-    const code = url.searchParams.get("code");
+  if (code) {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
 
-    // Debug
-    console.log("OAuth code:", code);
+    if (!error) {
+      return NextResponse.redirect(new URL(redirectPath, req.url));
+    }
+  }
 
-    // TODO: exchange code for session (Supabase etc.)
-
-    return NextResponse.redirect(new URL("/", req.url));
+  return NextResponse.redirect(new URL("/login", req.url));
 }
