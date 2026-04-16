@@ -1,15 +1,11 @@
-"use client";
+import type { Metadata } from "next";
 
-import { signInWithGoogle } from '@/lib/auth';
+import { LoginPage } from "@/features/auth";
 
-export default function LoginPage() {
-    return (
-        <div>
-            <h1>Login</h1>
+export const metadata: Metadata = {
+  title: "Login | Mission Saver",
+};
 
-            <button onClick={() => signInWithGoogle()}>
-                Continue with Google
-            </button>
-        </div>
-    );
+export default function LoginRoute() {
+  return <LoginPage />;
 }

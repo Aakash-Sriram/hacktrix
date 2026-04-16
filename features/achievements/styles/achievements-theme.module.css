@@ -1,0 +1,47 @@
+.theme {
+  --background: #fcf9f4;
+  --surface: #fcf9f4;
+  --surface-dim: #dcdad5;
+  --surface-bright: #fcf9f4;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6f3ee;
+  --surface-container: #f0ede9;
+  --surface-container-high: #ebe8e3;
+  --surface-container-highest: #e5e2dd;
+  --surface-variant: #e5e2dd;
+  --on-background: #1c1c19;
+  --on-surface: #1c1c19;
+  --on-surface-variant: #564241;
+  --outline: #8a7170;
+  --outline-variant: #ddc0be;
+  --primary: #a43a3d;
+  --primary-container: #ff7f7f;
+  --primary-fixed: #ffdad8;
+  --on-primary: #ffffff;
+  --on-primary-container: #74161e;
+  --on-primary-fixed-variant: #842228;
+  --secondary: #006a63;
+  --secondary-fixed: #8ef4e9;
+  --on-secondary: #ffffff;
+  --on-secondary-fixed: #00201d;
+  --tertiary: #835500;
+  --tertiary-container: #db9830;
+  --tertiary-fixed: #ffddb4;
+  --on-tertiary: #ffffff;
+  --on-tertiary-fixed-variant: #633f00;
+  --radius: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-achievements-body), sans-serif;
+}
+
+.theme h1,
+.theme h2,
+.theme h3,
+.theme h4 {
+  font-family: var(--font-achievements-headline), sans-serif;
+}

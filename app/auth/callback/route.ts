@@ -10,5 +10,5 @@ export async function GET(req: Request) {
 
     // TODO: exchange code for session (Supabase etc.)
 
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
 }
