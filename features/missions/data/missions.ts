@@ -14,10 +14,16 @@ export type MissionStatus = "Active" | "Completed" | "Paused";
 export type Mission = {
   id: string;
   title: string;
-  tagline: string;
-  target: string;
-  streak: string;
-  progress: string;
+  description: string;
+  monthlyInvestmentAmount: number;
+  goalAmount: number;
+  targetDate: string;
+  totalInvestedAmount: number;
+  targetDisplay: string;
+  streakDisplay: string;
+  progressDisplay: string;
+  imageUrl: string | null;
+  imageDescription: string | null;
   imageSrc: string;
   imageDataAlt: string;
   status: MissionStatus;
@@ -78,33 +84,4 @@ const missionAppearanceByStatus: Record<MissionStatus, MissionAppearance> = {
 
 export function getMissionAppearance(status: MissionStatus): MissionAppearance {
   return missionAppearanceByStatus[status];
-}
-
-export type MissionRow = {
-  id: string;
-  title: string;
-  tagline: string;
-  target: string;
-  streak: string;
-  progress: string;
-  image_src: string;
-  image_data_alt: string;
-  status: MissionStatus;
-};
-
-export const missionSelectColumns =
-  "id, title, tagline, target, streak, progress, image_src, image_data_alt, status";
-
-export function mapMissionRow(mission: MissionRow): Mission {
-  return {
-    id: mission.id,
-    title: mission.title,
-    tagline: mission.tagline,
-    target: mission.target,
-    streak: mission.streak,
-    progress: mission.progress,
-    imageSrc: mission.image_src,
-    imageDataAlt: mission.image_data_alt,
-    status: mission.status,
-  };
 }

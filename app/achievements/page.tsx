@@ -40,7 +40,9 @@ async function getUserAchievements(): Promise<Achievement[]> {
     throw error;
   }
 
-  return (data ?? []).map((achievement) => mapAchievementRow(achievement as AchievementRow));
+  const achievementRows = (data ?? []) as unknown as AchievementRow[];
+
+  return achievementRows.map((achievement) => mapAchievementRow(achievement));
 }
 
 export default async function AchievementsRoute() {

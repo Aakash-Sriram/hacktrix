@@ -1,5 +1,5 @@
 import { MissionCard } from "@/features/missions/components/MissionCard";
-import type { MissionMutation } from "@/features/missions/data/mission-mutations";
+import type { MissionIntentFormValue } from "@/features/missions/data/mission-intents";
 import type { Mission } from "@/features/missions/data/missions";
 
 type MissionGridProps = {
@@ -9,7 +9,7 @@ type MissionGridProps = {
   onCancelEdit: () => void;
   onDeleteMission: (mission: Mission) => void;
   onEditMission: (mission: Mission) => void;
-  onSaveMission: (missionId: string, value: MissionMutation) => void;
+  onSaveMission: (missionId: string, value: MissionIntentFormValue) => void;
 };
 
 export function MissionGrid({

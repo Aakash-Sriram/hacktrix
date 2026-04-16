@@ -1,5 +1,5 @@
 import { MissionForm } from "@/features/missions/components/MissionForm";
-import type { MissionMutation } from "@/features/missions/data/mission-mutations";
+import { toMissionIntentFormValue, type MissionIntentFormValue } from "@/features/missions/data/mission-intents";
 import { getMissionAppearance, type Mission } from "@/features/missions/data/missions";
 import styles from "@/features/missions/styles/mission-theme.module.css";
 
@@ -10,7 +10,7 @@ type MissionCardProps = {
   onCancelEdit?: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
-  onSave?: (value: MissionMutation) => void;
+  onSave?: (value: MissionIntentFormValue) => void;
 };
 
 export function MissionCard({
@@ -34,16 +34,7 @@ export function MissionCard({
           <h3 className="text-2xl font-bold text-on-surface">{mission.title}</h3>
         </div>
         <MissionForm
-          initialValue={{
-            title: mission.title,
-            tagline: mission.tagline,
-            target: mission.target,
-            streak: mission.streak,
-            progress: mission.progress,
-            imageSrc: mission.imageSrc,
-            imageDataAlt: mission.imageDataAlt,
-            status: mission.status,
-          }}
+          initialValue={toMissionIntentFormValue(mission)}
           isPending={isPending}
           onCancel={onCancelEdit}
           onSubmit={onSave}
@@ -75,30 +66,30 @@ export function MissionCard({
       <div className="mb-4">
         <h3 className="text-xl font-bold text-on-surface mb-1">{mission.title}</h3>
         <p className={`text-xs font-bold uppercase tracking-wider ${appearance.taglineClassName}`}>
-          {mission.tagline}
+          {mission.description}
         </p>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-8">
         <div>
           <p className="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Target</p>
-          <p className="text-sm font-bold text-on-surface">{mission.target}</p>
+          <p className="text-sm font-bold text-on-surface">{mission.targetDisplay}</p>
         </div>
         <div>
           <p className="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Streak</p>
-          <p className="text-sm font-bold text-on-surface">{mission.streak}</p>
+          <p className="text-sm font-bold text-on-surface">{mission.streakDisplay}</p>
         </div>
       </div>
       <div className="mt-auto">
         <div className="flex justify-between items-end mb-2">
           <span className="text-xs font-bold text-on-surface">Progress</span>
           <span className={`text-xs font-bold ${appearance.progressValueClassName}`}>
-            {mission.progress}
+            {mission.progressDisplay}
           </span>
         </div>
         <div className={`h-2 w-full rounded-full overflow-hidden ${appearance.progressTrackClassName}`}>
           <div
             className={`h-full rounded-full ${appearance.progressBarClassName}`}
-            style={{ width: mission.progress }}
+            style={{ width: mission.progressDisplay }}
           />
         </div>
         <div className="mt-6 flex gap-3">

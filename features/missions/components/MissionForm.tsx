@@ -3,29 +3,26 @@
 import { useEffect, useState } from "react";
 
 import {
-  emptyMissionMutation,
-  type MissionMutation,
-} from "@/features/missions/data/mission-mutations";
-import type { MissionStatus } from "@/features/missions/data/missions";
+  emptyMissionIntentFormValue,
+  type MissionIntentFormValue,
+} from "@/features/missions/data/mission-intents";
 
 type MissionFormProps = {
-  initialValue?: MissionMutation;
+  initialValue?: MissionIntentFormValue;
   isPending: boolean;
   onCancel?: () => void;
-  onSubmit: (value: MissionMutation) => void;
+  onSubmit: (value: MissionIntentFormValue) => void;
   submitLabel: string;
 };
 
-const missionStatuses: MissionStatus[] = ["Active", "Completed", "Paused"];
-
 export function MissionForm({
-  initialValue = emptyMissionMutation,
+  initialValue = emptyMissionIntentFormValue,
   isPending,
   onCancel,
   onSubmit,
   submitLabel,
 }: MissionFormProps) {
-  const [formValue, setFormValue] = useState<MissionMutation>(initialValue);
+  const [formValue, setFormValue] = useState<MissionIntentFormValue>(initialValue);
 
   useEffect(() => {
     setFormValue(initialValue);
@@ -55,78 +52,65 @@ export function MissionForm({
         </label>
         <label className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
-            Tagline
+            Description
           </span>
-          <input
-            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
+          <textarea
+            className="min-h-24 w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
             onChange={(event) =>
-              setFormValue((current) => ({ ...current, tagline: event.target.value }))
+              setFormValue((current) => ({ ...current, description: event.target.value }))
             }
             required
-            value={formValue.tagline}
+            value={formValue.description}
           />
         </label>
         <label className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
-            Target
+            Monthly Investment Amount
           </span>
           <input
             className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
-            onChange={(event) =>
-              setFormValue((current) => ({ ...current, target: event.target.value }))
-            }
-            required
-            value={formValue.target}
-          />
-        </label>
-        <label className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
-            Streak
-          </span>
-          <input
-            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
-            onChange={(event) =>
-              setFormValue((current) => ({ ...current, streak: event.target.value }))
-            }
-            required
-            value={formValue.streak}
-          />
-        </label>
-        <label className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
-            Progress
-          </span>
-          <input
-            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
-            onChange={(event) =>
-              setFormValue((current) => ({ ...current, progress: event.target.value }))
-            }
-            pattern="^(100|[1-9]?\d)%$"
-            placeholder="75%"
-            required
-            value={formValue.progress}
-          />
-        </label>
-        <label className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
-            Status
-          </span>
-          <select
-            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
+            min="0.01"
             onChange={(event) =>
               setFormValue((current) => ({
                 ...current,
-                status: event.target.value as MissionStatus,
+                monthlyInvestmentAmount: event.target.value,
               }))
             }
-            value={formValue.status}
-          >
-            {missionStatuses.map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
+            required
+            step="0.01"
+            type="number"
+            value={formValue.monthlyInvestmentAmount}
+          />
+        </label>
+        <label className="space-y-2">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
+            Goal Amount
+          </span>
+          <input
+            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
+            min="0.01"
+            onChange={(event) =>
+              setFormValue((current) => ({ ...current, goalAmount: event.target.value }))
+            }
+            required
+            step="0.01"
+            type="number"
+            value={formValue.goalAmount}
+          />
+        </label>
+        <label className="space-y-2">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
+            Target Date
+          </span>
+          <input
+            className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
+            onChange={(event) =>
+              setFormValue((current) => ({ ...current, targetDate: event.target.value }))
+            }
+            required
+            type="date"
+            value={formValue.targetDate}
+          />
         </label>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
@@ -137,11 +121,10 @@ export function MissionForm({
           <input
             className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
             onChange={(event) =>
-              setFormValue((current) => ({ ...current, imageSrc: event.target.value }))
+              setFormValue((current) => ({ ...current, imageUrl: event.target.value }))
             }
-            required
             type="url"
-            value={formValue.imageSrc}
+            value={formValue.imageUrl}
           />
         </label>
         <label className="space-y-2">
@@ -151,10 +134,12 @@ export function MissionForm({
           <input
             className="w-full rounded-2xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary"
             onChange={(event) =>
-              setFormValue((current) => ({ ...current, imageDataAlt: event.target.value }))
+              setFormValue((current) => ({
+                ...current,
+                imageDescription: event.target.value,
+              }))
             }
-            required
-            value={formValue.imageDataAlt}
+            value={formValue.imageDescription}
           />
         </label>
       </div>

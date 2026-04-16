@@ -3,7 +3,11 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-import { requestJson } from "@/lib/api";
+import {
+  createAchievement,
+  deleteAchievement,
+  updateAchievement,
+} from "@/features/achievements/actions";
 import { AchievementCard } from "@/features/achievements/components/AchievementCard";
 import { AchievementForm } from "@/features/achievements/components/AchievementForm";
 import { EmptyStatePromo } from "@/features/achievements/components/EmptyStatePromo";
@@ -111,11 +115,7 @@ export function AchievementManager({ achievements, stats }: AchievementManagerPr
             onCancel={() => setIsCreateOpen(false)}
             onSubmit={(value) =>
               runMutation(async () => {
-                await requestJson("/api/achievements", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(value),
-                });
+                await createAchievement(value);
                 setIsCreateOpen(false);
               })
             }
@@ -140,9 +140,7 @@ export function AchievementManager({ achievements, stats }: AchievementManagerPr
                 }
 
                 runMutation(async () => {
-                  await requestJson(`/api/achievements/${achievement.id}`, {
-                    method: "DELETE",
-                  });
+                  await deleteAchievement(achievement.id);
 
                   if (editingId === achievement.id) {
                     setEditingId(null);
@@ -160,11 +158,7 @@ export function AchievementManager({ achievements, stats }: AchievementManagerPr
                 onCancel={() => setEditingId(null)}
                 onSubmit={(value) =>
                   runMutation(async () => {
-                    await requestJson(`/api/achievements/${achievement.id}`, {
-                      method: "PATCH",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(value),
-                    });
+                    await updateAchievement(achievement.id, value);
                     setEditingId(null);
                   })
                 }

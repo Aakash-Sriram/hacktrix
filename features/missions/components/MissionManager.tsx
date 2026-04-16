@@ -3,11 +3,11 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-import { requestJson } from "@/lib/api";
+import { createMission, deleteMission, updateMission } from "@/features/missions/actions";
 import { MissionFilterBar } from "@/features/missions/components/MissionFilterBar";
 import { MissionForm } from "@/features/missions/components/MissionForm";
 import { MissionGrid } from "@/features/missions/components/MissionGrid";
-import { emptyMissionMutation } from "@/features/missions/data/mission-mutations";
+import { emptyMissionIntentFormValue } from "@/features/missions/data/mission-intents";
 import type { Mission, MissionStatus } from "@/features/missions/data/missions";
 import styles from "@/features/missions/styles/mission-theme.module.css";
 
@@ -74,16 +74,12 @@ export function MissionManager({ missions }: MissionManagerProps) {
             <h2 className="text-2xl font-bold text-on-surface">Add a mission for this account</h2>
           </div>
           <MissionForm
-            initialValue={emptyMissionMutation}
+            initialValue={emptyMissionIntentFormValue}
             isPending={isPending}
             onCancel={() => setIsCreateOpen(false)}
             onSubmit={(value) =>
               runMutation(async () => {
-                await requestJson("/api/missions", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(value),
-                });
+                await createMission(value);
                 setIsCreateOpen(false);
               })
             }
@@ -103,9 +99,7 @@ export function MissionManager({ missions }: MissionManagerProps) {
           }
 
           runMutation(async () => {
-            await requestJson(`/api/missions/${mission.id}`, {
-              method: "DELETE",
-            });
+            await deleteMission(mission.id);
 
             if (editingId === mission.id) {
               setEditingId(null);
@@ -118,11 +112,7 @@ export function MissionManager({ missions }: MissionManagerProps) {
         }}
         onSaveMission={(missionId, value) =>
           runMutation(async () => {
-            await requestJson(`/api/missions/${missionId}`, {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(value),
-            });
+            await updateMission(missionId, value);
             setEditingId(null);
           })
         }

@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 
 import { MissionPage } from "@/features/missions";
 import {
-  mapMissionRow,
+  buildMissionPresentation,
   missionSelectColumns,
-  type Mission,
-  type MissionRow,
-} from "@/features/missions/data/missions";
+  type MissionSourceRow,
+} from "@/features/missions/data/mission-intents";
+import type { Mission } from "@/features/missions/data/missions";
 import { createClient } from "@/utils/supabase/server";
 
 export const metadata: Metadata = {
@@ -33,13 +33,18 @@ async function getUserMissions(): Promise<Mission[]> {
     .from("missions")
     .select(missionSelectColumns)
     .eq("user_id", user.id)
+    .gt("monthly_investment_amount", 0)
+    .gt("goal_amount", 0)
+    .not("target_date", "is", null)
     .order("title");
 
   if (error) {
     throw error;
   }
 
-  return (data ?? []).map((mission) => mapMissionRow(mission as MissionRow));
+  const missionRows = (data ?? []) as unknown as MissionSourceRow[];
+
+  return missionRows.map((mission) => buildMissionPresentation(mission));
 }
 
 export default async function HomePage() {
