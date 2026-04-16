@@ -1,0 +1,45 @@
+.theme {
+  --background: #fcf9f4;
+  --surface: #fcf9f4;
+  --surface-dim: #dcdad5;
+  --surface-bright: #fcf9f4;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #ffffff;
+  --surface-container: #f0ede9;
+  --surface-container-high: #ebe8e3;
+  --surface-container-highest: #e5e2dd;
+  --surface-variant: #e5e2dd;
+  --on-background: #1c1c19;
+  --on-surface: #1c1c19;
+  --on-surface-variant: #564241;
+  --outline: #8a7170;
+  --outline-variant: #ddc0be;
+  --primary: #a43a3d;
+  --primary-container: #ff7f7f;
+  --on-primary: #ffffff;
+  --on-primary-container: #74161e;
+  --secondary: #006a63;
+  --on-secondary: #ffffff;
+  --secondary-container: #8bf1e6;
+  --tertiary-container: #db9830;
+  --radius: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-mission-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme h1,
+.theme h2,
+.theme h3,
+.brandLogo {
+  font-family: var(--font-mission-headline), sans-serif;
+}
+
+.missionCardShadow {
+  box-shadow: 0 4px 32px -4px rgba(28, 28, 25, 0.06);
+}

@@ -49,3 +49,7 @@ docs/superpowers/
 #agent skills
 
 .agent/
+
+#ui assets
+
+assets/ui/
