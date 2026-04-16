@@ -1,0 +1,7 @@
+langmem
+langchain
+fastapi
+uvicorn
+langgraph
+langchain_ollama
+uvicorn[standard]
